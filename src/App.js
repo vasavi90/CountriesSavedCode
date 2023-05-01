@@ -79,18 +79,35 @@ const initialCountriesList = [
   },
 ]
 
+const visitedList = [
+  {
+    id: '25841996-fbfd-4554-add4-4c94082c8ccd',
+    name: 'India',
+    imageUrl:
+      'https://assets.ccbp.in/frontend/react-js/visit-countries-india-img.png',
+    isVisited: true,
+  },
+  {
+    id: '1e4b1dcd-6ace-4dde-ad8d-675927d5ae47',
+    name: 'United Kingdom',
+    imageUrl:
+      'https://assets.ccbp.in/frontend/react-js/visit-countries-united-kingdom-img.png',
+    isVisited: true,
+  },
+]
+
 // Replace your code here
 class App extends Component {
   state = {
     initialList: initialCountriesList,
-    countryList: [],
+    countryList: visitedList,
   }
 
-  clickCountry = (id, imageUrl, name) => {
+  clickCountry = (id, name, imageUrl) => {
     const newCountry = {
       id,
-      imageUrl,
       name,
+      imageUrl,
     }
     this.setState(prevState => ({
       initialList: prevState.initialList.map(eachItem => {
@@ -104,20 +121,23 @@ class App extends Component {
   }
 
   deleteCountry = id => {
-    const {countryList} = this.state
-    const filterCountries = countryList.filter(
-      eachCountry => id !== eachCountry.id,
-    )
-    this.setState({
-      countryList: filterCountries,
-    })
+    this.setState(prevState => ({
+      initialList: prevState.initialList.map(eachItem => {
+        if (id === eachItem.id) {
+          return {...eachItem, isVisited: !eachItem.isVisited}
+        }
+        return eachItem
+      }),
+      countryList: prevState.countryList.filter(
+        eachCountry => id !== eachCountry.id,
+      ),
+    }))
   }
 
   renderCountry = () => {
     const {countryList} = this.state
     return (
       <>
-        <h1 className="heading-two">Visited Countries</h1>
         <ul className="countries">
           {countryList.map(eachCountry => (
             <VisitedCountries
@@ -147,10 +167,11 @@ class App extends Component {
             />
           ))}
         </ul>
+        <h1 className="heading-two">Visited Countries</h1>
         {findLength ? (
           this.renderCountry()
         ) : (
-          <p className="no-countries">No Visited Countries View</p>
+          <p className="no-countries">No Countries Visited Yet</p>
         )}
       </div>
     )

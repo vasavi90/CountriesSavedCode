@@ -2,20 +2,22 @@ import './index.css'
 
 const Countries = props => {
   const {details, clickCountry} = props
-  const {id, name, isVisited} = details
+  const {id, name, imageUrl, isVisited} = details
 
   const clickedCountry = () => {
-    clickCountry(id)
+    clickCountry(id, name, imageUrl)
   }
 
-  const classNameBtn = isVisited ? 'visited' : 'visit'
-  const btnText = isVisited ? 'Visited' : 'Visit'
   return (
     <li className="country">
       <p className="name">{name}</p>
-      <button className={classNameBtn} type="button" onClick={clickedCountry}>
-        {btnText}
-      </button>
+      {isVisited ? (
+        <p className="visited">Visited</p>
+      ) : (
+        <button className="visit" type="button" onClick={clickedCountry}>
+          Visit
+        </button>
+      )}
     </li>
   )
 }

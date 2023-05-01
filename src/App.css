@@ -16,17 +16,25 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 220px;
+}
+@media screen and (min-width: 768px) {
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 .heading {
   color: #f8fafc;
   font-family: 'Roboto';
   font-size: 22px;
-  font-weight: 400;
+  font-weight: bold;
+  margin-left: 20px;
 }
 @media screen and(min-width:768px) {
   .heading {
-    font-size: 30px;
+    font-size: 36px;
   }
 }
 .countries-container {
@@ -38,6 +46,7 @@ body {
   max-height: 500px;
   overflow: auto;
   border-radius: 10px;
+  padding-top: 70px;
 }
 .no-countries {
   font-family: 'Roboto';
@@ -53,16 +62,17 @@ body {
 .countries {
   display: flex;
   flex-wrap: wrap;
-  width: 60%;
+  width: 90%;
 }
 .heading-two {
   color: #ffffff;
   font-family: 'Roboto';
   font-size: 19px;
   font-weight: bold;
+  margin-left: 20px;
 }
 @media screen and(min-width:768px) {
   .heading-two {
-    font-size: 22px;
+    font-size: 36px;
   }
 }
