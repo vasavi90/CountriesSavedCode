@@ -1,8 +1,10 @@
+import {Component} from 'react'
+
 import Countries from './components/Countries'
 
-import './App.css'
+import VisitedCountries from './components/VisitedCountries'
 
-//This is the list (static data) used in the application. You can move it to any component if needed.
+import './App.css'
 
 const initialCountriesList = [
   {
@@ -78,17 +80,81 @@ const initialCountriesList = [
 ]
 
 // Replace your code here
-const App = () => {
-  return (
-    <div className="app-container">
-      <h1 className="heading">Countries</h1>
-      <ul className="countries-container">
-        {initialCountriesList.map(eachCountry => (
-          <Countries key={eachCountry.id} details={eachCountry} />
-        ))}
-      </ul>
-    </div>
-  )
+class App extends Component {
+  state = {
+    initialList: initialCountriesList,
+    countryList: [],
+  }
+
+  clickCountry = (id, imageUrl, name) => {
+    const newCountry = {
+      id,
+      imageUrl,
+      name,
+    }
+    this.setState(prevState => ({
+      initialList: prevState.initialList.map(eachItem => {
+        if (id === eachItem.id) {
+          return {...eachItem, isVisited: !eachItem.isVisited}
+        }
+        return eachItem
+      }),
+      countryList: [...prevState.countryList, newCountry],
+    }))
+  }
+
+  deleteCountry = id => {
+    const {countryList} = this.state
+    const filterCountries = countryList.filter(
+      eachCountry => id !== eachCountry.id,
+    )
+    this.setState({
+      countryList: filterCountries,
+    })
+  }
+
+  renderCountry = () => {
+    const {countryList} = this.state
+    return (
+      <>
+        <h1 className="heading-two">Visited Countries</h1>
+        <ul className="countries">
+          {countryList.map(eachCountry => (
+            <VisitedCountries
+              key={eachCountry.id}
+              details={eachCountry}
+              onDelete={this.deleteCountry}
+            />
+          ))}
+        </ul>
+      </>
+    )
+  }
+
+  render() {
+    const {initialList, countryList} = this.state
+    const findLength = countryList.length > 0
+    return (
+      <div className="app-container">
+        <h1 className="heading">Countries</h1>
+
+        <ul className="countries-container">
+          {initialList.map(eachCountry => (
+            <Countries
+              key={eachCountry.id}
+              details={eachCountry}
+              clickCountry={this.clickCountry}
+            />
+          ))}
+        </ul>
+        {findLength ? (
+          this.renderCountry()
+        ) : (
+          <p className="no-countries">No Visited Countries View</p>
+        )}
+      </div>
+    )
+  }
 }
 
 export default App

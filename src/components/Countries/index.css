@@ -8,9 +8,48 @@
   color: #ffffff;
   font-size: 18px;
   font-weight: 400;
+  margin-right: 20px;
 }
 @media screen and (min-width: 768px) {
   .name {
     font-size: 22px;
+  }
+}
+line {
+  color: #ffffff;
+  width: 100%;
+}
+.visit {
+  border-radius: 10px;
+  border: none;
+  width: 70px;
+  padding: 9px;
+  background-color: #3b82f6;
+  color: #ffffff;
+  font-family: 'Roboto';
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  margin-right: 10px;
+}
+@media screen and (min-width: 768px) {
+  .visit {
+    width: 90px;
+    font-size: 21px;
+  }
+}
+.visited {
+  margin-right: 10px;
+  color: #94a3b8;
+  font-family: 'Roboto';
+  font-size: 18px;
+  font-weight: 400;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+}
+@media screen and (min-width: 768px) {
+  .visited {
+    font-size: 21px;
   }
 }
